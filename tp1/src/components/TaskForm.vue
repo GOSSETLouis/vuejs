@@ -1,7 +1,7 @@
 <template>
   <div>
-    <input v-model="newTask" placeholder="Ajouter une nouvelle tâche" />
-    <button @click="addTask">Ajouter</button>
+    <ui-textfield v-model="newTask" placeholder="Ajouter une nouvelle tâche" />
+    <ui-button @click="addTask">Ajouter</ui-button>
   </div>
 </template>
 
