@@ -1,5 +1,6 @@
 <template>
-  <ui-list>
+<div class="flex gap-4">
+    <ui-list>
     <ui-item  v-for="task in tasks" :key="task.id">
       <ui-checkbox v-model="task.completed" />
       <span v-if="!task.editing">{{ task.text }}</span>
@@ -13,6 +14,7 @@
       <ui-button @click="deleteTask(task.id)"><ui-icon>delete</ui-icon></ui-button>
     </ui-item>
   </ui-list>
+</div>
 </template>
 
 <script lang="ts">
