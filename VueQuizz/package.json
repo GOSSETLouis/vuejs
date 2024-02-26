@@ -1,0 +1,44 @@
+{
+  "name": "tp1",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
+    "@vue/eslint-config-airbnb": "^8.0.0",
+    "balm-ui": "^10.26.0",
+    "eslint-plugin-prettier-vue": "^5.0.0",
+    "vue": "^3.4.15",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.3",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "eslint-config-hardcore": "25.1.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-import-resolver-typescript": "3.5.2",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-only-error": "1.0.2",
+    "eslint-plugin-simple-import-sort": "8.0.0",
+    "eslint-plugin-sonarjs": "0.16.0",
+    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "eslint-plugin-unicorn": "44.0.2",
+    "eslint-plugin-unused-imports": "2.0.0",
+    "eslint-plugin-vue": "^9.21.1",
+    "postcss": "^8.4.35",
+    "prettier": "^2.6.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.0",
+    "vue-tsc": "^1.8.27"
+  }
+}

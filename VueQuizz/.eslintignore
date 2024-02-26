@@ -1,0 +1,63 @@
+# Node
+node_modules
+
+# Logs
+*.log
+
+# IDE
+.idea
+
+# Build output
+build
+**/build
+tmp
+out-tsc
+dist
+**/dist
+
+# Husky
+.husky/_
+
+# Environment
+.env
+
+
+# Testing
+**/coverage
+
+# Typescript
+**/*.tsbuildinfo
+
+# Environment
+**/.env
+
+# Nuxt
+**/.nuxt
+
+# Generated CI configuration
+**/generated-ci-config.yml
+
+# TLS certificates
+**/*.pem
+
+# Docker volumes
+**/docker/volumes
+docker/volumes
+
+# PNPM
+**/.pnpm-store
+
+# Health file
+health.json
+
+
+.nx/cache
+.idea
+
+.eslintcache
+
+postcss.config.js
+
+tailwind.config.js
+
+.eslintrc.cjs
