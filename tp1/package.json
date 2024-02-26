@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
+    "@vue/eslint-config-airbnb": "^8.0.0",
     "balm-ui": "^10.26.0",
     "eslint-plugin-prettier-vue": "^5.0.0",
     "vue": "^3.4.15",

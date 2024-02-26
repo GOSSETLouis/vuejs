@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
 import { router } from "./router/router";
-// eslint-disable-next-line import/default
 import BalmUI from "balm-ui";
 import "balm-ui-css";
 

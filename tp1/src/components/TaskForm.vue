@@ -1,17 +1,3 @@
-<template>
-  <div class="flex gap-4 align-middle justify-center items-center">
-    <ui-textfield
-      v-model="newTask"
-      placeholder="Ajouter une nouvelle tâche"
-      @keyup.enter="addTask"
-    />
-    <select  v-model="selectedUser">
-      <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
-    </select>
-    <ui-button @click="addTask">Ajouter</ui-button>
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent, ref, PropType } from "vue";
 import { usersList } from "../utils/UsersList";
@@ -44,3 +30,17 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <div class="flex gap-4 align-middle justify-center items-center">
+    <ui-textfield
+      v-model="newTask"
+      placeholder="Ajouter une nouvelle tâche"
+      @keyup.enter="addTask"
+    />
+    <select v-model="selectedUser">
+      <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+    </select>
+    <ui-button @click="addTask">Ajouter</ui-button>
+  </div>
+</template>
