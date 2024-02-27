@@ -1,10 +1,12 @@
 <template>
   <BaseHeader :title="title" :show-score="showScore" :score="score" />
-  <div class="mx-auto p-4 max-w-[800px]">
+  <div v-if="isLoading">Chargement...</div>
+  <div v-else-if="isError">Erreur lors de la requête</div>
+  <div v-else class="mx-auto p-4 max-w-[800px]">
     <QuestionDisplay
       v-if="currentQuestion"
-      :question="currentQuestion.question"
-      :options="currentQuestion.options"
+      :question="currentQuestion.question.text"
+      :options="currentQuestionOptions"
       :correct-answer="currentQuestion.correctAnswer"
       @option-selected="handleOptionSelected"
     />
@@ -12,46 +14,66 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
+<script lang="ts">
+import { Ref, computed, defineComponent, reactive, ref, watchEffect } from "vue";
 import BaseHeader from "../components/BaseHeader.vue";
 import QuestionDisplay from "../components/QuestionDisplay.vue";
+import { useQuery } from "@tanstack/vue-query";
+import { getQuestionsByCategory } from "../queries/questions";
+import { QuestionType } from "../types/QuestionType";
 
 export default defineComponent({
-  name: "App",
+  name: "QuizzVue",
   components: {
     BaseHeader,
     QuestionDisplay,
   },
-  setup() {
+  props: {
+    category: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const title = "Quiz Application";
     const showScore = ref(false);
     const score = ref(0);
     const currentQuestionIndex = ref(0);
-
-    const questions = [
-      {
-        question: "Question 1: Quelle est la capitale de la France?",
-        options: ["Paris", "Londres", "Berlin"],
-        correctAnswer: "Paris",
+    console.log(props.category);
+    const category = ref(props.category);
+    const questionsArray: Ref<QuestionType[]> = ref([]);
+    const { isError, isLoading } = useQuery({
+      queryKey: ["questions", category.value],
+      queryFn: async () => {
+        const questions = await getQuestionsByCategory(category.value);
+        for await (const question of questions) {
+          questionsArray.value.push(question);
+        }
+        return { data: questions };
       },
-      {
-        question: "Question 2: Combien de continents y a-t-il sur Terre?",
-        options: ["5", "6", "7"],
-        correctAnswer: "7",
-      },
-    ];
+    });
+    const questions = reactive(questionsArray.value);
 
-    const currentQuestion = ref(questions[currentQuestionIndex.value]);
+    let currentQuestion = computed(() => questions[currentQuestionIndex.value]);
 
-    const handleOptionSelected = (selectedOption) => {
+    const currentQuestionOptions: Ref<string[]> = ref([]);
+
+    watchEffect(() => {
+      if (currentQuestion.value) {
+        currentQuestionOptions.value = [
+          ...currentQuestion.value.incorrectAnswers,
+          currentQuestion.value.correctAnswer,
+        ];
+      }
+    });
+
+    const handleOptionSelected = (selectedOption: string) => {
       if (selectedOption === questions[currentQuestionIndex.value].correctAnswer) {
         score.value++;
       }
       if (currentQuestionIndex.value < questions.length - 1) {
         setTimeout(() => {
           currentQuestionIndex.value++;
-          currentQuestion.value = questions[currentQuestionIndex.value];
         }, 2000);
       } else {
         setTimeout(() => {
@@ -66,6 +88,10 @@ export default defineComponent({
       score,
       currentQuestion,
       handleOptionSelected,
+      isError,
+      isLoading,
+      questions,
+      currentQuestionOptions,
     };
   },
 });
