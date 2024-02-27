@@ -1,5 +1,6 @@
 <script>
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "BaseHeader",
@@ -21,11 +22,17 @@ export default defineComponent({
     const title = ref(props.title);
     const showScore = ref(props.showScore);
     const score = ref(props.score);
+    const router = useRouter();
+
+    function goHome() {
+      router.push({ name: "Home" });
+    }
 
     return {
       title,
       score,
       showScore,
+      goHome,
     };
   },
 });
@@ -33,7 +40,8 @@ export default defineComponent({
 
 <template>
   <header class="bg-blue-500 text-white py-4">
-    <div class="container mx-auto flex items-center justify-between">
+    <div class="mx-auto flex items-center justify-between pl-12 pr-12">
+      <ui-icon class="hover:cursor-pointer" @click="goHome">home</ui-icon>
       <div class="text-2xl font-bold">{{ title }}</div>
       <div class="flex items-center space-x-4">
         <div v-if="showScore" class="text-lg font-semibold">
