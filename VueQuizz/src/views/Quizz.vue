@@ -10,7 +10,7 @@
       :correct-answer="currentQuestion.correctAnswer"
       @option-selected="handleOptionSelected"
     />
-    <div v-if="showScore">Score final: {{ score }}</div>
+    <div v-if="showScore">Score: {{ score }} / {{ questionsTotal }}</div>
   </div>
 </template>
 
@@ -35,12 +35,12 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const title = "Quiz Application";
     const showScore = ref(false);
     const score = ref(0);
     const currentQuestionIndex = ref(0);
     console.log(props.category);
     const category = ref(props.category);
+    const title = category;
     const questionsArray: Ref<QuestionType[]> = ref([]);
     const { isError, isLoading } = useQuery({
       queryKey: ["questions", category.value],
@@ -55,7 +55,7 @@ export default defineComponent({
     const questions = reactive(questionsArray.value);
 
     let currentQuestion = computed(() => questions[currentQuestionIndex.value]);
-
+    let questionsTotal = ref(0);
     const currentQuestionOptions: Ref<string[]> = ref([]);
 
     watchEffect(() => {
@@ -64,6 +64,9 @@ export default defineComponent({
           ...currentQuestion.value.incorrectAnswers,
           currentQuestion.value.correctAnswer,
         ];
+      }
+      if (questions.length > 0) {
+        questionsTotal.value = questions.length;
       }
     });
 
@@ -92,6 +95,7 @@ export default defineComponent({
       isLoading,
       questions,
       currentQuestionOptions,
+      questionsTotal,
     };
   },
 });
