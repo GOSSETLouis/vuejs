@@ -18,8 +18,8 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
+<script lang="ts">
+import { Ref, defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "QuestionDisplay",
@@ -29,7 +29,7 @@ export default defineComponent({
       required: true,
     },
     options: {
-      type: Array,
+      type: Array<string>,
       required: true,
     },
     correctAnswer: {
@@ -39,9 +39,9 @@ export default defineComponent({
   },
   emits: ["option-selected"],
   setup(props, { emit }) {
-    const selectedOption = ref(null);
-
-    const selectOption = (option) => {
+    const selectedOption: Ref<null | string> = ref(null);
+    const question = props.question;
+    const selectOption = (option: string) => {
       selectedOption.value = option;
       emit("option-selected", option);
     };
@@ -49,6 +49,7 @@ export default defineComponent({
     return {
       selectedOption,
       selectOption,
+      question,
     };
   },
 });

@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from "vue";
 import BaseHeader from "../components/BaseHeader.vue";
 import { useRouter } from "vue-router";
@@ -39,7 +39,7 @@ export default defineComponent({
     ];
     const title = "Quiz Application";
     const showScore = ref(false);
-    const startQuiz = (category) => {
+    const startQuiz = (category: string) => {
       router.push({ name: "Quizz", params: { category } });
     };
 

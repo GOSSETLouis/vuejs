@@ -53,7 +53,6 @@ export default defineComponent({
       },
     });
     const questions = reactive(questionsArray.value);
-
     let currentQuestion = computed(() => questions[currentQuestionIndex.value]);
     let questionsTotal = ref(0);
     const currentQuestionOptions: Ref<string[]> = ref([]);
