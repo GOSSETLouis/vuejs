@@ -40,7 +40,6 @@ export default defineComponent({
   emits: ["option-selected"],
   setup(props, { emit }) {
     const selectedOption: Ref<null | string> = ref(null);
-    const question = props.question;
     const selectOption = (option: string) => {
       selectedOption.value = option;
       emit("option-selected", option);
@@ -49,7 +48,6 @@ export default defineComponent({
     return {
       selectedOption,
       selectOption,
-      question,
     };
   },
 });
